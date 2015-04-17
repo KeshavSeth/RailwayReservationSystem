@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Train(models.Model):
     trainName = models.CharField(_("Train Name"), max_length=255)
-    trainNumber = models.IntegerField(
+    trainNumber = models.CharField(
         _("Train Number"), primary_key=True, max_length=6)
 
     def __str__(self):

@@ -3,10 +3,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
+from captcha.fields import CaptchaField
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 from authtools import forms as authtoolsforms
 from django.contrib.auth import forms as authforms
 from django.core.urlresolvers import reverse
+from authtools.models import User
 
 
 class LoginForm(AuthenticationForm):
@@ -26,7 +28,6 @@ class LoginForm(AuthenticationForm):
             Submit('sign_in', 'Log in',
                    css_class="btn btn-lg btn-primary btn-block"),
             )
-
 
 class SignupForm(authtoolsforms.UserCreationForm):
 
@@ -87,3 +88,10 @@ class SetPasswordForm(authforms.SetPasswordForm):
             Field('new_password2', placeholder="Enter new password (again)"),
             Submit('pass_change', 'Change Password', css_class="btn-warning"),
             )
+
+class CaptchaForm(forms.Form):
+     captcha = CaptchaField()
+     class Meta:
+        model = User
+
+

@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth import get_user_model
 from django.contrib import auth
@@ -77,3 +78,16 @@ class PasswordResetDoneView(authviews.PasswordResetDoneView):
 class PasswordResetConfirmView(authviews.PasswordResetConfirmAndLoginView):
     template_name = 'accounts/password-reset-confirm.html'
     form_class = forms.SetPasswordForm
+
+def get_captcha(request):
+    if request.method == 'POST':
+        captchaform = forms.CaptchaForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            captcha = data['captcha']
+            print captcha
+            
+            return HttpResponseRedirect('/')
+    else:
+        captchaform = forms.CaptchaForm()
+    return render(request, 'accounts/captcha.html', {'captchaform': captchaform})

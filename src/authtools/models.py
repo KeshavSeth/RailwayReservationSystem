@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import BaseUserManager
 from datetime import datetime
+from captcha.fields import CaptchaField
 
 
 class UserManager(BaseUserManager):
@@ -65,6 +66,7 @@ class AbstractNamedUser(AbstractEmailUser):
     gender = models.CharField(_('gender'), max_length=6)
     dob = models.DateField(_('date of birth'), default=datetime.date(datetime.now()))
     aadhar = models.CharField(_('aadhar'), max_length=12)
+    
 
     REQUIRED_FIELDS = ['name','phone_no','gender','dob']
 
