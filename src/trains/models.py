@@ -27,5 +27,8 @@ class Seat(models.Model):
     available = models.BooleanField(_("Booked"),default=False)
     seatType = models.CharField(_("Berth Type"), max_length=2)
 
+    def model_callable(self):
+        return self.train.trainName
+
     def __str__(self):
         return self.name
