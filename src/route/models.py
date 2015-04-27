@@ -31,6 +31,8 @@ class RouteManager(models.Manager):
             'schedule__departure').filter(id=Id)
         schedule['station'] = Route.objects.values(
             'schedule__station').filter(id=Id)
+        for i in schedule['station']:
+            i['schedule__station']
         return schedule
 
     def get_train_id(self, route_id):

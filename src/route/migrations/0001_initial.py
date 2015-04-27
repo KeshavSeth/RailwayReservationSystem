@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='Route',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('date', models.DateField(default=datetime.date(2015, 4, 27), verbose_name='Date of journey')),
+                ('datetime', models.DateTimeField(default=datetime.datetime(2015, 4, 27, 20, 27, 20, 857843), verbose_name='Date of journey')),
             ],
         ),
         migrations.CreateModel(
@@ -30,25 +30,15 @@ class Migration(migrations.Migration):
             name='StationSchedule',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('arrival', models.TimeField(verbose_name='Arrival Time')),
-                ('departure', models.TimeField(verbose_name='Departure Time')),
+                ('arrival', models.DateTimeField(default=datetime.datetime(2015, 4, 27, 20, 27, 20, 857236), verbose_name='Arrival Time')),
+                ('departure', models.DateTimeField(default=datetime.datetime(2015, 4, 27, 20, 27, 20, 857291), verbose_name='Departure Time')),
                 ('station', models.ForeignKey(to='route.Station')),
             ],
         ),
         migrations.AddField(
             model_name='route',
-            name='destination',
-            field=models.ForeignKey(related_name='destination', to='route.Station'),
-        ),
-        migrations.AddField(
-            model_name='route',
             name='schedule',
             field=models.ManyToManyField(related_name='stations', to='route.StationSchedule'),
-        ),
-        migrations.AddField(
-            model_name='route',
-            name='source',
-            field=models.ForeignKey(related_name='source', to='route.Station'),
         ),
         migrations.AddField(
             model_name='route',
