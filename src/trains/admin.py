@@ -2,13 +2,13 @@ from django.contrib import admin
 from trains.models import *
 
 def unbound_callable(seat):
-    return seat.train.trainName
+    return seat.coach.seatQuota
 
 
 class SeatInline(admin.TabularInline):
 	model = Seat
-	fields = ('name', 'model_callable', 'model_admin_callable', unbound_callable)
-	readonly_fields = ('model_callable', 'model_admin_callable', unbound_callable)
+	fields = ('name', 'quota', unbound_callable)
+	readonly_fields = ('quota', unbound_callable)
 
 	def model_admin_callable(self, seat):
 		return seat.train.trainName

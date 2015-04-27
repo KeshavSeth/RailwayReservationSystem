@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Route{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="about" %}
+{% endblock %}
+
+{% block container %}
+<table style = "margin:50px" class="table table-responsive table-bordered">
+<th>{{trainId}} | {{trainName}}</th>
+	<tr>
+		<th>Station</th>
+		<th>Arrival Time</th>
+		<th>Departure Time</th>
+	</tr>
+{% for i,j,k in schedule %}
+<tr>
+	<td>{{ i }}</td>
+	<td>{{ j }}</td>
+	<td>{{ k }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock container %}

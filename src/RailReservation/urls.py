@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 import profiles.urls
 import accounts.urls
+from route.views import *
 from . import views
 
 urlpatterns = patterns(
@@ -12,6 +13,7 @@ urlpatterns = patterns(
     url(r'^about/$', views.AboutPage.as_view(), name='about'),
     url(r'^', include(accounts.urls, namespace='accounts')),
     url(r'^users/', include(profiles.urls, namespace='profiles')),
+    url(r'^route/(?P<route_id>\d+)$', get_route, name='route'),
     url(r'^admin/', include(admin.site.urls)),
 )
 
