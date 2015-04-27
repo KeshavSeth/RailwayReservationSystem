@@ -17,12 +17,14 @@
 		<th>Arrival Time</th>
 		<th>Departure Time</th>
 	</tr>
-{% for i,j,k in schedule %}
+{% for i in route %}
+	{% for values in i %}
 <tr>
-	<td>{{ i }}</td>
-	<td>{{ j }}</td>
-	<td>{{ k }}</td>
+	<td>{{ values.schedule__station }}</td>
+	<td>{{ values.schedule__arrival }}</td>
+	<td>{{ values.schedule__departure }}</td>
 </tr>
+{% endfor %}
 {% endfor %}
 </table>
 
