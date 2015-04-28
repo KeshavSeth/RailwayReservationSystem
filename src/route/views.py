@@ -9,7 +9,8 @@ def get_route(request, route_id):
     route = Route.objects.sort_by_arrival(schedule)
     trainId = Route.objects.get_train_id(route_id)
     trainName = Train.objects.get_train(trainId)
-    """arr = []
+    """
+    arr = []
     dep = []
     sta = []
     arrival = route['arrival']
@@ -22,7 +23,8 @@ def get_route(request, route_id):
     for k in station:
         sta.append(Station.objects.get_station(k['schedule__station']))
     schedule = zip(sta, arr, dep)
-    print schedule"""
+    print schedule
+    """
     print route
 
     context = {'route': route,

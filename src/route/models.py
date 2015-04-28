@@ -2,13 +2,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from trains.models import *
 from datetime import datetime
+from station.models import *
 
 
-class Station(models.Model):
-    name = models.CharField(_("Station Name"), max_length=255)
-
-    def __str__(self):
-        return self.name
+class ScheduleManager(models.Manager):
+    pass
 
 
 class StationSchedule(models.Model):
@@ -16,6 +14,7 @@ class StationSchedule(models.Model):
     arrival = models.DateTimeField(_("Arrival Time"), default=datetime.now())
     departure = models.DateTimeField(
         _("Departure Time"), default=datetime.now())
+    objects = ScheduleManager()
 
     def __str__(self):
         return str(self.station) + " | " + str(self.arrival) + " | " + str(self.departure)
@@ -31,8 +30,6 @@ class RouteManager(models.Manager):
             'schedule__departure').filter(id=Id)
         schedule['station'] = Route.objects.values(
             'schedule__station').filter(id=Id)
-        for i in schedule['station']:
-            i['schedule__station']
         return schedule
 
     def get_train_id(self, route_id):
@@ -43,7 +40,10 @@ class RouteManager(models.Manager):
         # key=lambda k: k['schedule__arrival'])
         x = (schedule)['arrival']
         y = (schedule)['station']
-        z = (schedule)['departure']
+        z = (schedule)['departure'] 
+        # convert station_id to station_name
+        for i in  y:
+            i['schedule__station'] = Station.objects.get_station_name(i['schedule__station'])
         indices = sorted(range(len(x)), key=lambda k: x[k])
         arrival = [x[i] for i in indices]
         station = [y[i] for i in indices]
