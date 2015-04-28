@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Route{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="about" %}
+{% endblock %}
+
+{% block container %}
+<table style = "margin:50px" class="table table-responsive table-bordered">
+<tr>
+{% for i in train.number %}
+<a href="#"><td>{{ i }}</td></a>
+{% endfor %}
+</tr>
+<tr>
+{% for i in train.name %}
+<a href="#"><td>{{ i }}</td></a>
+{% endfor %}
+</tr>
+</table>
+
+{% endblock container %}

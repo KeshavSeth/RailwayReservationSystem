@@ -11,14 +11,17 @@ class TrainClass(models.Model):
     def __str__(self):
         return str(self.className) + " " + str(self.seatQuota)
 
+
 class TrainManager(models.Manager):
 
-    def get_train(self,train_id):
-        return Train.objects.values().get(trainNumber= train_id)['trainName']
+    def get_train(self, train_id):
+        return Train.objects.values().get(trainNumber=train_id)['trainName']
+
 
 class Train(models.Model):
     trainName = models.CharField(_("Train Name"), max_length=255)
-    trainNumber = models.CharField(_("Train Number"), primary_key=True, max_length=6)
+    trainNumber = models.CharField(
+        _("Train Number"), primary_key=True, max_length=6)
     coach = models.ManyToManyField(TrainClass)
     objects = TrainManager()
 
@@ -34,14 +37,15 @@ class Seat(models.Model):
     BERTH_TYPE = (
         (LOWER, 'lower'),
         (MIDDLE, 'middle'),
-        (UPPER,'upper'),
-        )
+        (UPPER, 'upper'),
+    )
 
     train = models.ForeignKey(Train)
     coach = models.ForeignKey(TrainClass)
-    name = models.CharField(_("Seat No."),max_length=5)
-    available = models.BooleanField(_("Booked"),default=False)
-    seatType = models.CharField(_("Berth Type"), max_length=2,choices=BERTH_TYPE,default='lower')
+    name = models.CharField(_("Seat No."), max_length=5)
+    available = models.BooleanField(_("Booked"), default=False)
+    seatType = models.CharField(
+        _("Berth Type"), max_length=2, choices=BERTH_TYPE, default='lower')
 
     def quota(self):
         return self.coach.seatQuota

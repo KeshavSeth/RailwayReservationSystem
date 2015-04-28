@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=255, verbose_name='name')),
                 ('phone_no', models.PositiveIntegerField(default=0, verbose_name='phone No')),
                 ('gender', models.CharField(max_length=6, verbose_name='gender')),
-                ('dob', models.DateField(default=datetime.date(2015, 4, 27), verbose_name='date of birth')),
+                ('dob', models.DateField(default=datetime.date(2015, 4, 28), verbose_name='date of birth')),
                 ('aadhar', models.CharField(max_length=12, verbose_name='aadhar')),
                 ('groups', models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Group', blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Permission', blank=True, help_text='Specific permissions for this user.', verbose_name='user permissions')),

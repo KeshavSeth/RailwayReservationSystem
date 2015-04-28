@@ -8,6 +8,7 @@ import datetime
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('station', '0001_initial'),
         ('trains', '0001_initial'),
     ]
 
@@ -16,23 +17,16 @@ class Migration(migrations.Migration):
             name='Route',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('datetime', models.DateTimeField(default=datetime.datetime(2015, 4, 27, 20, 27, 20, 857843), verbose_name='Date of journey')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Station',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=255, verbose_name='Station Name')),
+                ('datetime', models.DateTimeField(default=datetime.datetime(2015, 4, 28, 5, 59, 52, 823849), verbose_name='Date of journey')),
             ],
         ),
         migrations.CreateModel(
             name='StationSchedule',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('arrival', models.DateTimeField(default=datetime.datetime(2015, 4, 27, 20, 27, 20, 857236), verbose_name='Arrival Time')),
-                ('departure', models.DateTimeField(default=datetime.datetime(2015, 4, 27, 20, 27, 20, 857291), verbose_name='Departure Time')),
-                ('station', models.ForeignKey(to='route.Station')),
+                ('arrival', models.DateTimeField(default=datetime.datetime(2015, 4, 28, 5, 59, 52, 823132), verbose_name='Arrival Time')),
+                ('departure', models.DateTimeField(default=datetime.datetime(2015, 4, 28, 5, 59, 52, 823191), verbose_name='Departure Time')),
+                ('station', models.ForeignKey(to='station.Station')),
             ],
         ),
         migrations.AddField(
