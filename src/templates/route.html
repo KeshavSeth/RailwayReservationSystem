@@ -10,20 +10,22 @@
 {% endblock %}
 
 {% block container %}
-<table style = "margin:50px" class="table table-responsive table-bordered">
-<th>{{trainId}} | {{trainName}}</th>
-	<tr>
-		<th>Station</th>
-		<th>Arrival Time</th>
-		<th>Departure Time</th>
-	</tr>
+<div style = "margin:50px">
+{{trainId}} | {{trainName}}
+</div>
+<div class = "row">
+	<div class = "col-md-4"><strong>Station</strong></div>
+	<div class = "col-md-4"><strong>Arrival Time</strong></div>
+	<div class = "col-md-4"><strong>Departure Time</strong></div>
+</div>
+	
+<div class = "row">
 {% for i in route %}
 	{% for values in i %}
-<tr>
-	<td>{{ values.schedule__station }}</td>
-	<td>{{ values.schedule__arrival }}</td>
-	<td>{{ values.schedule__departure }}</td>
-</tr>
+	<div class = "col-md-4">{% if values.schedule__station %}{{ values.schedule__station }}{% endif %}</div>
+	<div class = "col-md-4">{% if values.schedule__arrival %}{{ values.schedule__arrival }}{% endif %}</div>
+	<div class = "col-md-4">{% if values.schedule__departure %}{{ values.schedule__departure }}{% endif %}</div>
+	</br>
 	{% endfor %}
 {% endfor %}
 </table>

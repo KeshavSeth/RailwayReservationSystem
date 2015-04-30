@@ -2,18 +2,26 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from trains.models import *
 from datetime import datetime
+from django.utils import timezone
 from station.models import *
 
 
 class ScheduleManager(models.Manager):
-    pass
+
+    def get_schedule_by_date(self, station_id, date):
+        station = StationSchedule.objects.values().filter(station=station_id)
+        temp = []
+        for i in station:
+            if i['departure'].date() == date:
+                temp.append(i)
+        return temp
 
 
 class StationSchedule(models.Model):
     station = models.ForeignKey(Station)
-    arrival = models.DateTimeField(_("Arrival Time"), default=datetime.now())
+    arrival = models.DateTimeField(_("Arrival Time"), default=timezone.now)
     departure = models.DateTimeField(
-        _("Departure Time"), default=datetime.now())
+        _("Departure Time"), default=timezone.now)
     objects = ScheduleManager()
 
     def __str__(self):
@@ -40,10 +48,11 @@ class RouteManager(models.Manager):
         # key=lambda k: k['schedule__arrival'])
         x = (schedule)['arrival']
         y = (schedule)['station']
-        z = (schedule)['departure'] 
+        z = (schedule)['departure']
         # convert station_id to station_name
-        for i in  y:
-            i['schedule__station'] = Station.objects.get_station_name(i['schedule__station'])
+        for i in y:
+            i['schedule__station'] = Station.objects.get_station_name(
+                i['schedule__station'])
         indices = sorted(range(len(x)), key=lambda k: x[k])
         arrival = [x[i] for i in indices]
         station = [y[i] for i in indices]
@@ -53,7 +62,7 @@ class RouteManager(models.Manager):
 
 class Route(models.Model):
     datetime = models.DateTimeField(
-        _("Date of journey"), default=datetime.now())
+        _("Date of journey"), default=timezone.now)
     train = models.OneToOneField(Train)
     schedule = models.ManyToManyField(StationSchedule, related_name="stations")
     objects = RouteManager()

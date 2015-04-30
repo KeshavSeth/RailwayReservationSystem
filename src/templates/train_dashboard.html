@@ -10,17 +10,27 @@
 {% endblock %}
 
 {% block container %}
-<table style = "margin:50px" class="table table-responsive table-bordered">
-<tr>
+
+<div class = "row" style = "padding:100px 0 0 100px">
+<div class = "col-md-2">
+<strong>Train Number</strong>
+</div>
+<div class = "col-md-2">
+<strong>Train Name</strong>
+</div>
+<hr>
+</div>
+<div class = "row" style = "padding-left:100px">
+<div class = "col-md-2">
 {% for i in train.number %}
-<a href="#"><td>{{ i }}</td></a>
+<a href="{% url 'route' i  %}">{{ i }}</a></br>
 {% endfor %}
-</tr>
-<tr>
+</div>
+<div class = "col-md-2">
 {% for i in train.name %}
-<a href="#"><td>{{ i }}</td></a>
+{{ i }}</br>
 {% endfor %}
-</tr>
-</table>
+</div>
+</div>
 
 {% endblock container %}

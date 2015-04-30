@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Route{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="about" %}
+{% endblock %}
+
+{% block container %}
+<div class="container">
+<form style = "padding:100px" method="post">
+	{% csrf_token %}
+	{{ form }}
+	<input type="submit" value="Find"/>
+</form>
+</div>
+
+{% endblock container %}

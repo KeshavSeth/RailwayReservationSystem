@@ -4,29 +4,16 @@ from station.models import Station
 from trains.models import *
 
 
-def get_route(request, route_id):
+def get_route_by_train(request, train_id):
+    name = Train.objects.values().get(trainNumber=train_id)['trainName']
+    route_id = Route.objects.values().get(train__trainName=name)['id']
     schedule = Route.objects.get_schedule(route_id)
     route = Route.objects.sort_by_arrival(schedule)
-    trainId = Route.objects.get_train_id(route_id)
-    trainName = Train.objects.get_train(trainId)
-    """
-    arr = []
-    dep = []
-    sta = []
-    arrival = route['arrival']
-    departure = route['departure']
-    station = route['station']
-    for i in arrival:
-        arr.append(i['schedule__arrival'])
-    for j in departure:
-        dep.append(j['schedule__departure'])
-    for k in station:
-        sta.append(Station.objects.get_station(k['schedule__station']))
-    schedule = zip(sta, arr, dep)
-    print schedule
-    """
     print route
-
     context = {'route': route,
-               'trainId': trainId, 'trainName': trainName}
+               'trainId': train_id, 'trainName': name}
     return render(request, 'route.html', context)
+
+
+def get_train_by_station(request, station_id, date):
+    pass

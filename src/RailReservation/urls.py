@@ -6,6 +6,7 @@ import profiles.urls
 import accounts.urls
 import trains.urls
 from route.views import *
+from station.views import *
 from . import views
 
 urlpatterns = patterns(
@@ -15,7 +16,9 @@ urlpatterns = patterns(
     url(r'^', include(accounts.urls, namespace='accounts')),
     url(r'^trains/', include(trains.urls, namespace='trains')),
     url(r'^users/', include(profiles.urls, namespace='profiles')),
-    url(r'^route/(?P<route_id>\d+)$', get_route, name='route'),
+    url(r'^route/(?P<train_id>\d+)$', get_route_by_train, name='route'),
+    url(r'^search/', get_form, name='search'),
+    url(r'^display/', find_trains, name='display'),
     url(r'^admin/', include(admin.site.urls)),
 
 )
