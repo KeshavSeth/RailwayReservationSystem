@@ -13,7 +13,7 @@ class ScheduleManager(models.Manager):
         temp = []
         for i in station:
             if i['departure'].date() == date:
-                temp.append(i)
+                temp.append(i['id'])
         return temp
 
 
@@ -42,6 +42,14 @@ class RouteManager(models.Manager):
 
     def get_train_id(self, route_id):
         return Route.objects.values().get(id=route_id)['train_id']
+
+    def get_route_by_schedule(self, schedule_list):
+        route = []
+        for i in schedule_list:
+            x = Route.objects.values('id').filter(schedule=i)
+            if x:
+                route.append(x)
+        return [item for sub in route for item in sub]
 
     def sort_by_arrival(self, schedule):
         # return sorted(Route.objects.get_schedule(route_id)['arrival'],

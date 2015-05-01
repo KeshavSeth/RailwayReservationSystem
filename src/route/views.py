@@ -15,5 +15,22 @@ def get_route_by_train(request, train_id):
     return render(request, 'route.html', context)
 
 
-def get_train_by_station(request, station_id, date):
-    pass
+def get_route_by_station(station_id, date):
+    sched = StationSchedule.objects.get_schedule_by_date(station_id, date)
+    temp = Route.objects.get_route_by_schedule(sched)
+    route = []
+    for i in temp:
+        route.append(i['id'])
+    return route
+
+
+def find_routes(source, destination, date):
+    source_id = Station.objects.get_station_id(source)
+    destination_id = Station.objects.get_station_id(destination)
+    finalRoute = []
+    sourceRoutes = get_route_by_station(source_id, date)
+    for i in sourceRoutes:
+        x = Route.objects.values('schedule__station').filter(id=i)
+        if {'schedule__station': destination_id} in x:
+            finalRoute.append(i)
+    return finalRoute

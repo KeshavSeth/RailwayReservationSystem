@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from route.models import *
+from route.views import *
 from station.models import *
 from trains.models import *
-
-# Create your views here.
 
 
 def trainList(request):
@@ -19,3 +18,11 @@ def trainList(request):
     train['number'] = numberList
     context = {'train': train}
     return render(request, 'train_dashboard.html', context)
+
+
+def trainEnquiry(request, source, destination, date):
+    routes = find_routes(source, destination, date)
+    trainList = []
+    for i in routes:
+        trainList.append(Route.objects.get_train_id(i))
+    return render('enquiry.html', {'trainList': trainList})
