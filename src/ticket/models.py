@@ -3,14 +3,13 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from datetime import datetime
 from trains.models import *
+from route.models import *
 
 
 class Ticket(models.Model):
-
-    train = models.ForeignKey(Train, default=0)
-    trainClass = models.OneToOneField(TrainClass, default=0)
     holderName = models.CharField(_("Passenger Name"), max_length=255)
-    seat = models.IntegerField(_("Seat no."), default=0)
+    seat = models.OneToOneField(Seat)
+    fare = models.PositiveIntegerField(_("Ticket Fare"), default=0)
     #bookedBy = models.ForeignKey(User, max_length=255)
     date = models.DateField(
         _("Date of departure"), default=timezone.now)
@@ -20,7 +19,7 @@ class Ticket(models.Model):
 
 
 class Passenger(models.Model):
-    ticket = models.ForeignKey(Ticket)
+    ticket = models.OneToOneField(Ticket)
     name = models.CharField(_("Name of Passenger"), max_length=100)
     #dob = models.DateField(_("Date of Birth "), default=datetime.date(datetime.now()))
     age = models.PositiveIntegerField(_("Age"), default=None)

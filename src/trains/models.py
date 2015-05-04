@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 class Bogey(models.Model):
     className = models.CharField(_("Seat Class"), max_length=255)
     seatQuota = models.CharField(_("Seat Quota"), max_length=255)
-    fare = models.PositiveIntegerField(_("Fare"), default=0)
 
     def __str__(self):
         return str(self.className) + " " + str(self.seatQuota)
@@ -47,8 +46,6 @@ class Seat(models.Model):
         (MIDDLE, 'middle'),
         (UPPER, 'upper'),
     )
-
-    train = models.ForeignKey(Train)
     coach = models.ForeignKey(TrainClass)
     name = models.CharField(_("Seat No."), max_length=5)
     available = models.BooleanField(_("Booked"), default=False)
