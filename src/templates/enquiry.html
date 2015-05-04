@@ -13,7 +13,7 @@
 <div style = "padding:50px;" class="container">
 {% for i,j,k,l,m,n,o in enquiry %}
 {{ i }} || {{ j }}  || {{ l|date:'H:i' }} ||  {{ m|date:'H:i' }}  || {{ n }} ||{% for x, y in o.iteritems %}
-		<a href="{% url 'ticket:booking' x %}">{{ y }}</a>{% if not forloop.last %} | {% endif %} {% endfor %}
+		<a href="{% url 'ticket:booking' i x %}">{{ y }}</a>{% if not forloop.last %} | {% endif %} {% endfor %}
 {% endfor %}
 </div>
 

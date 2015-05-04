@@ -6,7 +6,7 @@ from . import views
 
 urlpatterns = patterns(
     '',
-    url(r'^bookTicket/(?P<coach_id>\d+)', views.book_ticket, name='booking'),
+    url(r'^bookTicket/(?P<train_id>\d+)/(?P<coach_id>\d+)/', views.book_ticket, name='booking'),
 
 )
 
