@@ -10,9 +10,13 @@ class ScheduleManager(models.Manager):
 
     def get_schedule_by_date(self, station_id, date):
         station = StationSchedule.objects.values().filter(station=station_id)
+        print station
         temp = []
         for i in station:
-            if i['departure'].date() == date:
+            print i['departure'].date()
+            print date
+            if str(i['departure'].date()) == str(date):
+                print "xxx"
                 temp.append(i['id'])
         return temp
 

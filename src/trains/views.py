@@ -20,9 +20,13 @@ def trainList(request):
     return render(request, 'train_dashboard.html', context)
 
 
-def trainEnquiry(request, source, destination, date):
+def trainEnquiry(request):
+    source = request.POST['source']
+    destination = request.POST['destination']
+    date = request.POST['date']
+    print source, destination, date
     routes = find_routes(source, destination, date)
     trainList = []
     for i in routes:
         trainList.append(Route.objects.get_train_id(i))
-    return render('enquiry.html', {'trainList': trainList})
+    return render(request, 'enquiry.html', {'trainList': trainList, 'routeList': routes})

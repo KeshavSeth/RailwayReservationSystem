@@ -7,6 +7,7 @@ import accounts.urls
 import trains.urls
 from route.views import *
 from station.views import *
+from trains.views import *
 from . import views
 
 urlpatterns = patterns(
@@ -18,7 +19,7 @@ urlpatterns = patterns(
     url(r'^users/', include(profiles.urls, namespace='profiles')),
     url(r'^route/(?P<train_id>\d+)$', get_route_by_train, name='route'),
     url(r'^search/', get_form, name='search'),
-    url(r'^display/', find_trains, name='display'),
+    url(r'^display/', trainEnquiry, name='display'),
     url(r'^admin/', include(admin.site.urls)),
 
 )

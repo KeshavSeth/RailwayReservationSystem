@@ -17,6 +17,7 @@ def get_route_by_train(request, train_id):
 
 def get_route_by_station(station_id, date):
     sched = StationSchedule.objects.get_schedule_by_date(station_id, date)
+    print sched
     temp = Route.objects.get_route_by_schedule(sched)
     route = []
     for i in temp:

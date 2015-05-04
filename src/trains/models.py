@@ -2,15 +2,22 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class TrainClass(models.Model):
+class Bogey(models.Model):
     className = models.CharField(_("Seat Class"), max_length=255)
     seatQuota = models.CharField(_("Seat Quota"), max_length=255)
-    totalSeats = models.IntegerField(_("Total Seats"), default=0)
-    availSeats = models.IntegerField(_("Avaiable Seats"), default=0)
     fare = models.PositiveIntegerField(_("Fare"), default=0)
 
     def __str__(self):
         return str(self.className) + " " + str(self.seatQuota)
+
+
+class TrainClass(models.Model):
+    bogey = models.ForeignKey(Bogey)
+    totalSeats = models.IntegerField(_("Total Seats"), default=0)
+    availSeats = models.IntegerField(_("Avaiable Seats"), default=0)
+
+    def __str__(self):
+        return str(self.bogey) + " | " + str(self.availSeats) + " left"
 
 
 class TrainManager(models.Manager):

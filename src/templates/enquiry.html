@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Enquiry{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="about" %}
+{% endblock %}
+
+{% block container %}
+<div style = "padding:50px;" class="container">
+{% for i in trainList %}
+{{ i }}</br>
+{% endfor %}
+</div>
+<div style = "padding:50px;" class="container">
+{% for i in routeList %}
+{{ i }}</br>
+{% endfor %}</br>
+</div>
+
+
+{% endblock container %}
