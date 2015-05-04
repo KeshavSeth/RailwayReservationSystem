@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 import profiles.urls
 import accounts.urls
 import trains.urls
+import ticket.urls
 from route.views import *
 from station.views import *
 from trains.views import *
@@ -17,6 +18,7 @@ urlpatterns = patterns(
     url(r'^', include(accounts.urls, namespace='accounts')),
     url(r'^trains/', include(trains.urls, namespace='trains')),
     url(r'^users/', include(profiles.urls, namespace='profiles')),
+    url(r'^ticket/', include(ticket.urls, namespace='ticket')),
     url(r'^route/(?P<train_id>\d+)$', get_route_by_train, name='route'),
     url(r'^search/', get_form, name='search'),
     url(r'^display/', trainEnquiry, name='display'),

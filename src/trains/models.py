@@ -10,10 +10,15 @@ class Bogey(models.Model):
         return str(self.className) + " " + str(self.seatQuota)
 
 
+class TrainClassManager(models.Manager):
+    pass
+
+
 class TrainClass(models.Model):
     bogey = models.ForeignKey(Bogey)
     totalSeats = models.IntegerField(_("Total Seats"), default=0)
     availSeats = models.IntegerField(_("Avaiable Seats"), default=0)
+    objects = TrainClassManager()
 
     def __str__(self):
         return str(self.bogey) + " | " + str(self.availSeats) + " left"
@@ -23,6 +28,22 @@ class TrainManager(models.Manager):
 
     def get_train(self, train_id):
         return Train.objects.values().get(trainNumber=train_id)['trainName']
+
+    def get_train_class(self, train_id):
+        trainClassList = []
+        temp = Train.objects.values(
+            'coach').filter(trainNumber=train_id)
+        for i in temp:
+            trainClassList.append(i['coach'])
+        return trainClassList
+
+    def get_train_bogeyName(self, train_class_id_list):
+        trainBogeyNameList = []
+        for i in train_class_id_list:
+            temp = TrainClass.objects.values().get(id=i)['bogey_id']
+            trainBogeyNameList.append(
+                Bogey.objects.values().get(id=temp)['className'])
+        return trainBogeyNameList
 
 
 class Train(models.Model):

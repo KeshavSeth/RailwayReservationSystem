@@ -7,6 +7,9 @@ class StationManager(models.Manager):
     def get_station_id(self, station_name):
         return Station.objects.values().get(stationName=station_name)['id']
 
+    def get_station_name(self, station_id):
+    	return Station.objects.values().get(id=station_id)['stationName']
+
 
 class Station(models.Model):
     stationName = models.CharField(_("Station Name"), max_length=255)

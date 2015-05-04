@@ -11,15 +11,12 @@
 
 {% block container %}
 <div style = "padding:50px;" class="container">
-{% for i in trainList %}
-{{ i }}</br>
+{% for i,j,k,l,m,n,o in enquiry %}
+{{ i }} || {{ j }}  || {{ l|date:'H:i' }} ||  {{ m|date:'H:i' }}  || {{ n }} ||{% for x, y in o.iteritems %}
+		<a href="{% url 'ticket:booking' x %}">{{ y }}</a>{% if not forloop.last %} | {% endif %} {% endfor %}
 {% endfor %}
 </div>
-<div style = "padding:50px;" class="container">
-{% for i in routeList %}
-{{ i }}</br>
-{% endfor %}</br>
-</div>
+
 
 
 {% endblock container %}
