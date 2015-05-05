@@ -64,4 +64,4 @@ def trainEnquiry(request):
     print coach
     print enquiry
 
-    return render(request, 'enquiry.html', {'enquiry': enquiry, 'coachList': coachList})
+    return render(request, 'enquiry.html', {'enquiry': enquiry})

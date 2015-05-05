@@ -11,7 +11,9 @@ class Bogey(models.Model):
 
 
 class TrainClassManager(models.Manager):
-    pass
+
+    def get_train_class(self, coach_id):
+        return TrainClass.objects.values().get(id=coach_id)['id']
 
 
 class TrainClass(models.Model):
@@ -57,6 +59,12 @@ class Train(models.Model):
         return self.trainName
 
 
+class SeatManager(models.Manager):
+
+    def get_seat_from_train_class(self, coach_id):
+        return Seat.objects.values().get(coach_id=coach_id)
+
+
 class Seat(models.Model):
     LOWER = 'LO'
     MIDDLE = 'MI'
@@ -72,6 +80,7 @@ class Seat(models.Model):
     available = models.BooleanField(_("Booked"), default=False)
     seatType = models.CharField(
         _("Berth Type"), max_length=2, choices=BERTH_TYPE, default='lower')
+    objects = SeatManager()
 
     def quota(self):
         return self.coach.seatQuota

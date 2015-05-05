@@ -15,7 +15,7 @@ def get_form(request):
     else:
         form = SearchForm()
 
-    return render(request, 'search.html', {'form': form})
+    return render(request, 'book.html', {'form': form})
 
 
 def find_trains(request):
